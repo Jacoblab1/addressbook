@@ -1,5 +1,6 @@
 package main;
 
+import main.AddressBookController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 import static org.assertj.core.api.Assertions.assertThat;
