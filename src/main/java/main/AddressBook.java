@@ -119,7 +119,7 @@ public class AddressBook {
 	public String toString() {
 		String output = "";
 		for(Object buddy : buddyList.toArray()) {
-			output += buddy.toString() + "\n\n";
+			output += buddy.toString() + "\n\n\n";
 		}
 		return output;
 	}

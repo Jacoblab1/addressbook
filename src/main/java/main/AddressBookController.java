@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @ComponentScan("main")
 @EntityScan("main")
@@ -32,6 +29,34 @@ public class AddressBookController {
         model.addAttribute("id", id);
         AddressBook ab = abRepository.findById(id);
         model.addAttribute("content", ab.toString());
+        return "addressbook";
+    }
+
+    @GetMapping("/addressBookForm")
+    public String addressBookForm(Model model) {
+        model.addAttribute("addressBook", new AddressBook());
+        return "addressbookform";
+    }
+
+    @GetMapping("/buddyInfoForm")
+    public String buddyInfoForm(Model model) {
+        model.addAttribute("buddyInfo", new BuddyInfo());
+        return "buddyinfoform";
+    }
+
+    @PostMapping("/buddyInfoSubmit")
+    public String buddyInfoSubmit(@RequestParam("addressBookID") Integer id, @ModelAttribute BuddyInfo buddyInfo, Model model) {
+        AddressBook ab = abRepository.findById(id);
+        ab.addBuddy(buddyInfo);
+        abRepository.save(ab);
+        model.addAttribute("content", ab.toString());
+        return "addressbook";
+    }
+
+    @PostMapping("/addressBookSubmit")
+    public String greetingSubmit(@ModelAttribute AddressBook addressBook, Model model) {
+        abRepository.save(addressBook);
+        model.addAttribute("content", addressBook.toString());
         return "addressbook";
     }
 
